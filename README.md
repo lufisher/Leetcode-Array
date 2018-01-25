@@ -10,6 +10,6 @@ private leetcode algorithm exercises
 
 寒假需要完成的事情：
 1、刷leetcode；
-2、看程序员面试宝典；
+2、看剑指offer，这个是短平快的；
 3、看一些经典的数据结构；
 //
