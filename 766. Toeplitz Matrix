@@ -1,0 +1,15 @@
+//方法一:通过对每一个元素进行两两判断是否相同来获得结果。这是一个很简单的线性的思维。
+//事实上，编程要习惯逻辑的想法，不要一开始就想着判断一整列，而是想着可以两两一直判断下去
+class Solution {
+public:
+	bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+		auto m = matrix.size();
+		auto n = matrix[0].size();//矩阵有m行n列
+		for (int i = 0; i < m-1; ++i)
+			for (int j = 0; j < n-1; ++j) {
+				if (matrix[i][j] != matrix[i + 1][j + 1])
+					return false;
+			}
+		return true;
+	}
+};
