@@ -1,0 +1,28 @@
+//方法一:其实就是按顺序把原来的数列的数取下来，然后放进新的维度的数列。问题很简单。O(m*n)，这个时间复杂度没办法降低了
+class Solution {
+public:
+	vector<vector<int>> matrixReshape(vector<vector<int>>& nums,const int r,const int c) {
+		auto m = nums.size();//原本的行列
+		auto n = nums[0].size();
+		if (m*n != r*c)
+			return nums;
+		else {
+			vector<int> element;
+			for (int i = 0; i < m; ++i)
+				for (int j = 0; j < n; ++j)
+					element.push_back(nums[i][j]);
+			int k = 0;//记录总元素位置
+			vector<vector<int>> newNums;
+			vector<int> row;
+			for (int i = 0; i < r; ++i) {
+				for (int j = 0; j < c; ++j) {
+					row.push_back(element[k]);
+					++k;
+				}
+				newNums.push_back(row);
+				row.clear();
+			}
+			return newNums;
+		}
+	}
+};
