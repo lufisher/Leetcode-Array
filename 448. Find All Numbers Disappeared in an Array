@@ -1,0 +1,46 @@
+Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+
+Find all the elements of [1, n] inclusive that do not appear in this array.
+
+Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+
+Example:
+
+Input:
+[4,3,2,7,8,2,3,1]
+
+Output:
+[5,6]
+
+//方法一:就是用另一个数组，既然nums里面数据是大小范围内，那就用另一个数组来进行统计。但是这样不符合没有extra space的要求 O(n)
+class Solution { 
+public:
+	vector<int> findDisappearedNumbers(vector<int>& nums) {
+		auto n = nums.size();
+		vector<int> result, endresult;
+		for (int i = 0; i < n; ++i)
+			result.push_back(0);
+		for (int i = 0; i < n; ++i) 
+			++result[nums[i]-1];
+		for (int i = 0; i < n; ++i)
+			if (result[i] == 0)
+				endresult.push_back(i + 1);
+		return endresult;
+	}
+};
+//方法二：遍历整个数组，对于每一个数组，符合要求的，就在原数组相应位置处令它为负值，这样整个数组中不是负值的数就是不符合要求的，没有extra space，O(n)
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int len = nums.size();
+        for(int i=0; i<len; i++) {
+            int m = abs(nums[i])-1; // index start from 0
+            nums[m] = nums[m]>0 ? -nums[m] : nums[m];
+        }
+        vector<int> res;
+        for(int i = 0; i<len; i++) {
+            if(nums[i] > 0) res.push_back(i+1);
+        }
+        return res;
+    }
+};
