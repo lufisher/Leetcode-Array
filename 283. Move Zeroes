@@ -11,7 +11,7 @@ Minimize the total number of operations.
 #include<vector>
 #include<queue>
 using namespace std;
-//方法一：使用一个先进先出的队列容器queue
+//方法一：使用一个先进先出的队列容器queue（其实不需要用queue的，用一个vector也行，因为vector是随机存储的）
 class Solution {
 public:
 	void moveZeroes(vector<int>& nums) {
