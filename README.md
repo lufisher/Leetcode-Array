@@ -1,4 +1,3 @@
-# leetcode-algorithm-exercises-
 private leetcode algorithm exercises for array
 //
 用寒假的时间，尽量把leetcode多刷一点。由于刚开始刷，可以先从简单的题目和简单的主题开始，分主题分难度刷。需要做到的是：
@@ -13,4 +12,8 @@ private leetcode algorithm exercises for array
 1、刷leetcode；
 2、看剑指offer，这个是短平快的；
 3、看一些经典的数据结构；
-//
+
+后续仍需要做的事情：
+1、实习
+2、打比赛
+3、其他的一些基础知识，如数据库、操作系统、网络等
