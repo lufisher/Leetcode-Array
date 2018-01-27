@@ -1,0 +1,53 @@
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
+
+Note:
+You must do this in-place without making a copy of the array.
+Minimize the total number of operations.
+
+#include "stdafx.h"
+#include<iostream>
+#include<vector>
+#include<queue>
+using namespace std;
+//方法一：使用一个先进先出的队列容器queue
+class Solution {
+public:
+	void moveZeroes(vector<int>& nums) {
+		int nozeronumber = 0;
+		queue<int> nozeros;
+		for (int i = 0; i < nums.size(); ++i) {
+			if (nums[i] == 0)
+				++nozeronumber;
+			else
+				nozeros.push(nums[i]);
+		}
+		for (int i = 0; i < nums.size() - nozeronumber; ++i) {
+			nums[i] = nozeros.front();
+			nozeros.pop();
+		}
+		for (int i = nums.size() - nozeronumber; i < nums.size(); ++i)
+			nums[i] = 0;
+	}
+};
+//方法二：使用两个指针，进行多次交换
+class Solution {//使用两个指针进行多次交换
+public:
+	void moveZeroes(vector<int>& nums) {
+		vector<int>::iterator firstzero = nums.begin(), firstnozero;
+		while (firstzero != nums.end()&&firstnozero!=nums.end()) {
+			while (*firstzero != 0 && firstzero != nums.end()-1)
+				++firstzero;
+			firstnozero = firstzero + 1;
+			while (*firstnozero == 0 && firstnozero != nums.end() - 1 && firstnozero != nums.end())
+				++firstnozero;
+			if (firstnozero != nums.end()) {
+				*firstzero = *firstnozero;
+				*firstnozero = 0;
+				++firstzero;
+				++firstnozero;
+			}
+		}
+	}
+};
