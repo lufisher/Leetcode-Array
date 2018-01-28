@@ -1,0 +1,39 @@
+Given an integer array, find three numbers whose product is maximum and output the maximum product.
+
+Example 1:
+Input: [1,2,3]
+Output: 6
+Example 2:
+Input: [1,2,3,4]
+Output: 24
+Note:
+The length of the given array will be in range [3,104] and all elements are in the range [-1000, 1000].
+Multiplication of any three numbers in the input won't exceed the range of 32-bit signed integer.
+
+//方法一：先排序，然后取多种可能性返回 O(nlogn)
+class Solution {
+public:
+	int maximumProduct(vector<int>& nums) {
+		auto size = nums.size();
+		sort(nums.begin(), nums.end());
+		int i = max(nums[0] * nums[1] * nums[2], nums[0] * nums[1] * nums[nums.size() - 1]);
+		int j = max(nums[0] * nums[nums.size() - 1] * nums[nums.size() - 2], nums[nums.size() - 1] * nums[nums.size() - 2] * nums[nums.size() - 3]);
+		return max(i, j);
+	}
+};
+//方法二：直接用三个i，j，k遍历，O(n^3)，这种方法时间复杂度太大，运行时间太长，在leetcode上没法通过，exceed time
+class Solution {
+public:
+	int maximumProduct(vector<int>& nums) {
+		auto size = nums.size();
+		int count = nums[0] * nums[1] * nums[2];
+		for (int i = 0; i < size - 2; ++i)
+			for (int j = i + 1; j < size - 1; ++j)
+				for (int k = j + 1; k < size; ++k)
+					if (nums[i] * nums[j] * nums[k] > count)
+						count = nums[i] * nums[j] * nums[k];
+		return count;
+	}
+};
+//感觉leetcode上的解法不太对，例如solution3 里面 return Math.max(min1 * min2 * max1, max1 * max2 * max3);
+//明显情况没有举尽，如果是需要用max，那肯定是分至少四种情况
