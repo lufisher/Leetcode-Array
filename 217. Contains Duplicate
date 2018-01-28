@@ -1,0 +1,23 @@
+Given an array of integers, find if the array contains any duplicates. 
+Your function should return true if any value appears at least twice in the
+array, and it should return false if every element is distinct.
+
+//方法一：直接用一个集合容器set来判断是否已经有元素存入即可，这个方法是O(n)
+class Solution {
+public:
+	bool containsDuplicate(vector<int>& nums) {
+		set<int> myset;
+		int size = nums.size();
+        if (size == 0)
+			return false;
+		for (int i = 0; i < size; ++i) {
+			if (myset.count(nums[i]) == 0)
+				myset.insert(nums[i]);
+			else
+				return true;
+		}
+		return false;
+	}
+};
+//方法二：可以先排序，然后寻找是否有nums[i]==nums[i+1]的情况。这个编程很简单，是O(nlogn)
+//方法三：很粗暴，直接用i和j对，遍历整个数组，看有没有相同的情况，O(n^2)
