@@ -1,0 +1,12 @@
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+You may assume that the array is non-empty and the majority element always exist in the array.
+//方法一：既然假定该数组不为空且该majority element必然存在，那必然占据了超过一半的位置，排个序，取中间值，那就必定是那个数 O(nlogn)
+class Solution {
+public:
+	int majorityElement(vector<int>& nums) {
+		sort(nums.begin(),nums.end());
+		return nums[nums.size() / 2 ];
+	}
+};
+//方法二：可以使用哈希表，把每个元素出现的次数存进哈希表中，然后取出次数最大的那个。C++中可以用map
