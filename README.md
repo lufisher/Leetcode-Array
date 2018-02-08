@@ -18,3 +18,6 @@ private leetcode algorithm exercises for array
 1、实习
 2、打比赛
 3、其他的一些基础知识，如数据库、操作系统、网络等
+
+要给自己定一个目标，刷题整个寒假至少要刷150百道题目
+到了寒假结束，要有200道solved
