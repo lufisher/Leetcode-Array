@@ -1,0 +1,52 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+
+//方法一：最简单的方法，就是遍历。注意，题目中提到了一定会存在结果，不会有没有结果的情况，时间O(n^2)
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> result;
+        for(int i=0;i<nums.size();++i)
+            for(int j=i+1;j<nums.size();++j)
+                if(nums[i]+nums[j]==target){
+                    result.push_back(i);
+                    result.push_back(j);
+                    return result;
+                }
+    }
+};
+//方法二：用哈希表，先把所有的元素存进去，然后再遍历，每次寻找target-nums[i]是否存在在哈希表中
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        map.put(nums[i], i);
+    }
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement) && map.get(complement) != i) {
+            return new int[] { i, map.get(complement) };
+        }
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
+//方法三：也是使用哈希表，但是跟方法二不同的是，不是先全部存进去，而是每次存一次然后，同时查找元素是否在里面，这个方法是最好的
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement)) {
+            return new int[] { map.get(complement), i };
+        }
+        map.put(nums[i], i);
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
