@@ -1,0 +1,45 @@
+ Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+
+For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
+the contiguous subarray [4,-1,2,1] has the largest sum = 6. 
+
+//方法一：是最笨的方法，就是求出所有子串的可能性，并且所有的求和值作比较。但是这样时间复杂度是O(n^2)，所有范例中
+//通过率是200/202，其他的太长的子串超时了
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        if(nums.size()==0)
+            return 0;
+        int result=nums[0];
+        for(int sublength=1;sublength<=nums.size();++sublength){
+            for(int i=0;i<nums.size()-sublength+1;++i)
+                if(sum(nums,i,sublength)>result)
+                    result=sum(nums,i,sublength);
+        }
+        return result;
+    }
+    int sum(vector<int>& nums,int start,int length){
+        int result=0;
+        for(int i=start;i<start+length;++i)
+            result=result+nums[i];
+        return result;
+    }
+};
+//方法二：O(n)。事实上我们并不关心和最大的子串到底是哪个子串而只需要知道最大的那个和是多少。那这样的话，我们当然可以直接对整个数组
+//进行相加。这个算法有点复杂的，现在来解释一下
+在这里，sum和ans都表示包括当前位置的和
+既然是为了找到和最大的子串，那我们就不断先从头开始相加，若找到某个位置nums[i],突然发现他之前的位置的相加比他还小，这个时候就认为，还不如
+从这个位置相加好了，所以就先sum=sum+nums[i]，先加进去，然后把ans设置为sum和ans的较大值。这时候如果sum是小于0，也就意味着ans的结果是
+抛弃了nums[i]之前的值的总和，如果sum大于0，也就是包括了前半段的总和。然后如果sum是小于0，那就设置为0，因为不能用它影响后面步骤
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int ans=nums[0],i,j,sum=0;
+        for(i=0;i<nums.size();i++){
+            sum=sum+nums[i];
+            ans=max(sum,ans);
+            sum=max(sum,0);
+        }
+        return ans;
+    }
+};
