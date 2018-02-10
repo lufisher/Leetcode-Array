@@ -1,0 +1,47 @@
+ Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+Example:
+
+Given nums = [1,1,2],
+
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+It doesn't matter what you leave beyond the new length.
+
+//注意，不仅要返回个数，还要改变那个数列
+//方法一：最简单的方法，直接把重复的元素往前用不重复的替代掉
+class Solution {
+public://不仅要返回数目，还要改变那个nums
+    int removeDuplicates(vector<int>& nums) {
+        if(nums.size()==0)
+            return 0;
+        int i=0;
+        for(int j=1;j<nums.size();++j){
+            if(nums[i]!=nums[j]){
+                ++i;
+                nums[i]=nums[j];
+            }
+        }
+        return i+1;
+    }
+};
+//方法二：用集合，自动排序和剔除掉重复元素，但是不知道为什么没有得到正常结果，应该代码没啥问题啊
+class Solution {
+public://不仅要返回数目，还要改变那个nums
+    int removeDuplicates(vector<int>& nums) {
+        set<int> myset;
+        int result=0;
+        for(int i=0;i<nums.size();++i){
+            if(!myset.count(nums[i]))
+                myset.insert(nums[i]);
+            else
+                ++result;
+        }
+        nums.clear();
+        set<int>::iterator p=myset.begin();
+        for(;p!=myset.end();++p)
+            nums.push_back(*p);
+        return result;
+    }
+};
