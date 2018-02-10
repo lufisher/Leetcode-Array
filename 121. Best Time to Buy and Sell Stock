@@ -1,0 +1,32 @@
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Example 1:
+
+Input: [7, 1, 5, 3, 6, 4]
+Output: 5
+
+max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+
+Example 2:
+
+Input: [7, 6, 4, 3, 1]
+Output: 0
+
+In this case, no transaction is done, i.e. max profit = 0.
+
+//方法：这题最好不要用遍历的方法。可以发现，由于只能买卖一次，因此最大的收益无非是某最低点的价格和后面某最高点的价格的差
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int minprice=INT_MAX;//这里需要用最大int
+        int maxprofit=0;//这里收益要用0
+        for(int i=0;i<prices.size();++i)
+            if(minprice>prices[i])//每次遍历，如果有发现更低的点，就把他放进最低点价格
+                minprice=prices[i];
+            else if(prices[i]-minprice>maxprofit)//每次都用该点减去最低点价格，必然会得到一个最低点后面的最大收益
+                maxprofit=prices[i]-minprice;
+        return maxprofit;
+    }
+};
