@@ -1,0 +1,57 @@
+Given a non-empty array of integers, return the third maximum number in this array. If it does not exist, return the maximum number. The time complexity must be in O(n).
+
+Example 1:
+
+Input: [3, 2, 1]
+
+Output: 1
+
+Explanation: The third maximum is 1.
+
+Example 2:
+
+Input: [1, 2]
+
+Output: 2
+
+Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
+
+Example 3:
+
+Input: [2, 2, 3, 1]
+
+Output: 1
+
+Explanation: Note that the third maximum here means the third maximum distinct number.
+Both numbers with value 2 are both considered as second maximum.
+//方法一：就直接用集合来弄，但是要注意并不是所有迭代器都有加减法
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> myset;
+        for(int i=0;i<nums.size();++i)
+            myset.insert(nums[i]);
+        auto i=myset.end();
+        /*
+        不能return *(i-3)
+        能进行算术运算的迭代器只有随即访问迭代器，要求容器元素存储在连续内存空间里，vector，string，deque的迭代器是有加减法的，但是       
+        map，set，multimap,multiset的迭代器是没有加减法的，list也不可以
+        */
+        if(myset.size()>=3){
+            --i;
+            --i;
+            --i;
+            return *i;
+        }
+        else{
+            --i;
+            return *i;
+        }
+    }
+};
+//当然还可以设置三个变量max1,max2,max3来逐个比较
+
+
+
+
+
