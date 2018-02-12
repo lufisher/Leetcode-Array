@@ -1,0 +1,19 @@
+Given an array of integers and an integer k, find out whether there are two dist
+inct indices i and j in the array such that nums[i] = nums[j] and the absolut
+e difference between i and j is at most k. 
+//方法一：使用一个map即可，很简单
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        map<int,int> mymap;//甚至都不需要multimap，因为该差值必然是相邻的相同元素最小
+        for(int i=0;i<nums.size();++i)
+            if(!mymap.count(nums[i]))//如果元素不存在与mymap中
+                mymap.insert(make_pair(nums[i],i));
+            else//元素在mymap中
+                if(i-mymap[nums[i]]<=k)
+                    return true;
+                else
+                    mymap[nums[i]]=i;//这里注意，不要用insert方法了，因为元素已经存在与map中，就算insert的键值不一样，也没法insert进去
+        return false;
+    }
+};
